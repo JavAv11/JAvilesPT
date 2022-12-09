@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -118,9 +120,67 @@ namespace PL
                 Console.WriteLine("El Libro no pudo ser borrado " + result.ErrorMessage);
                 Console.ReadKey();
             }
-        } 
+        }
 
-        
+        public static void GetAll()
+        {
+            ML.Result result = new ML.Result();
+            result = BL.Libro.GetAll();
+            if (result.Correct)
+            {
+                foreach (ML.Libro libro in result.Objects)
+                {
+
+                    Console.WriteLine("---------------------------------------");
+                    Console.WriteLine("El Id del Libro es: " + libro.IdLibro);
+                    Console.WriteLine("El Nombre del Libro es: " + libro.Nombre);
+                    Console.WriteLine("El IdAutor del Libro es: " + libro.IdAutor);
+                    Console.WriteLine("El Numero de paginas del Libro es: " + libro.NumeroPaginas);
+                    Console.WriteLine("El Fecha de Publicación del Libro es: " + libro.FechaPublicacion);
+                    Console.WriteLine("El IdEditorial del Libro es: " + libro.IdEditorial);
+                    Console.WriteLine("El Edicion del Libro es: " + libro.Edicion);
+                    Console.WriteLine("El IdGenero del Libro es: " + libro.IdGenero);
+                    Console.WriteLine("---------------------------------------");
+                    Console.ReadKey();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Ocurrio un error: " + result.ErrorMessage);
+                Console.ReadKey();
+            }
+        }
+
+        public static void GetById(int IdLibro)
+        {
+            Console.WriteLine("Ingresa el Id del Libro que desea consultar");
+            IdLibro = int.Parse(Console.ReadLine());
+
+            ML.Result result = BL.Libro.GetById(IdLibro);
+
+            if (result.Correct)
+            {
+                ML.Libro libro = new ML.Libro();
+
+                Console.WriteLine("---------------------------------------");
+                Console.WriteLine("El Id del Libro es: " + libro.IdLibro);
+                Console.WriteLine("El Nombre del Libro es: " + libro.Nombre);
+                Console.WriteLine("El IdAutor del Libro es: " + libro.IdAutor);
+                Console.WriteLine("El Numero de paginas del Libro es: " + libro.NumeroPaginas);
+                Console.WriteLine("El Fecha de Publicación del Libro es: " + libro.FechaPublicacion);
+                Console.WriteLine("El IdEditorial del Libro es: " + libro.IdEditorial);
+                Console.WriteLine("El Edicion del Libro es: " + libro.Edicion);
+                Console.WriteLine("El IdGenero del Libro es: " + libro.IdGenero);
+                Console.WriteLine("---------------------------------------");
+                Console.ReadKey();
+
+            }
+            else
+            {
+                Console.WriteLine("Ocurrio un error: " + result.ErrorMessage);
+                Console.ReadKey();
+            }
+        }
     }
    
 }

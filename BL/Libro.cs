@@ -176,7 +176,7 @@ namespace BL
             return result;
         }
 
-        public static ML.Result GetAll(ML.Libro libro)
+        public static ML.Result GetAll()
         {
             ML.Result result = new ML.Result();
             try
@@ -184,6 +184,7 @@ namespace BL
                 using (SqlConnection context = new SqlConnection(DL.Conexion.GetConnectionString()))
                 {
                     using (SqlCommand cmd = new SqlCommand())
+
                     {
                         cmd.CommandText = "LibroGetAll";
                         cmd.Connection = context;
@@ -193,11 +194,12 @@ namespace BL
                         DataTable tableLibro = new DataTable();
                         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
+                        ML.Libro libro = new ML.Libro();
                         adapter.Fill(tableLibro);
-                        if(tableLibro.Rows.Count > 0)
+                        if (tableLibro.Rows.Count > 0)
                         {
                             result.Objects = new List<object>();
-                            foreach(DataRow dataRow in tableLibro.Rows)
+                            foreach (DataRow dataRow in tableLibro.Rows)
                             {
                                 libro.IdLibro = int.Parse(dataRow[0].ToString());
                                 libro.Nombre = dataRow[1].ToString();
@@ -209,15 +211,15 @@ namespace BL
                                 libro.IdGenero = int.Parse(dataRow[6].ToString());
 
                                 result.Objects.Add(libro);
-                                
+
                             }
-                            if(result.Objects.Count > 0)
+                            if (result.Objects.Count > 0)
                             {
                                 result.Correct = true;
                             }
                             else
                             {
-                                result.Correct=false;
+                                result.Correct = false;
                             }
                         }
                     }
@@ -226,7 +228,70 @@ namespace BL
             catch (Exception ex)
             {
                 result.Correct = false;
-                result.ErrorMessage=ex.Message;
+                result.ErrorMessage = ex.Message;
+                result.ex = ex;
+            }
+            return result;
+        }
+
+        public static ML.Result GetById(int IdLibro)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (SqlConnection context = new SqlConnection(DL.Conexion.GetConnectionString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "GetByIdLibro";
+                        cmd.Connection = context;
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        SqlParameter[] collection = new SqlParameter[1];
+                        collection[0] = new SqlParameter("@IdLibro", SqlDbType.Int);
+                        collection[0].Value = IdLibro;
+
+                        cmd.Parameters.Add(collection);
+
+
+                        DataTable tableLibro = new DataTable();
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+                        adapter.Fill(tableLibro);
+                        if (tableLibro.Rows.Count > 0)
+                        {
+                            result.Objects = new List<object>();
+                            DataRow dataRow = tableLibro.Rows[0];
+
+                            ML.Libro libro = new ML.Libro();
+                            libro.IdLibro = int.Parse(dataRow[0].ToString());
+                            libro.Nombre = dataRow[1].ToString();
+                            libro.IdAutor = int.Parse(dataRow[2].ToString());
+                            libro.NumeroPaginas = dataRow[3].ToString();
+                            libro.FechaPublicacion = dataRow[4].ToString();
+                            libro.IdEditorial = int.Parse(dataRow[0].ToString());
+                            libro.Edicion = dataRow[5].ToString();
+                            libro.IdGenero = int.Parse(dataRow[6].ToString());
+
+                            result.Objects.Add(libro);
+
+
+                            if (result.Objects.Count > 0)
+                            {
+                                result.Correct = true;
+                            }
+                            else
+                            {
+                                result.Correct = false;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
                 result.ex = ex;
             }
             return result;
