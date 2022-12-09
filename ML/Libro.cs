@@ -9,7 +9,7 @@ namespace ML
     public class Libro
     {
 
-        public int IdRol { get; set; }
+        public int IdLibro { get; set; }
         public string Nombre { get; set; }
         public int IdAutor { get; set; }
         public string NumeroPaginas { get; set; }
