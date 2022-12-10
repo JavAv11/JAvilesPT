@@ -17,6 +17,7 @@ namespace ML
         public int IdEditorial { get; set; }
         public string Edicion { get; set; }
         public int IdGenero { get; set; }
+        public List<Object> Libros { get; set; }
 
     }
 }

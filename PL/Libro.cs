@@ -23,7 +23,7 @@ namespace PL
             libro.IdAutor = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Escribe Numero de Paginas de un Libro");
-            libro.NumeroPaginas = Console.ReadLine();
+            libro.NumeroPaginas = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Escribe Fecha de Publicacion de un Libro");
             libro.FechaPublicacion = Console.ReadLine();
@@ -68,7 +68,7 @@ namespace PL
             libro.IdAutor = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Escribe Numero de Paginas de un Libro");
-            libro.NumeroPaginas = Console.ReadLine();
+            libro.NumeroPaginas = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Escribe Fecha de Publicacion de un Libro");
             libro.FechaPublicacion = Console.ReadLine();

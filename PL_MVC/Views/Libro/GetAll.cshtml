@@ -1,0 +1,51 @@
+﻿@model ML.Libro
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Libros</h2>
+
+<div class="container">
+
+    <div class="row">
+        <div style="float:right">
+            @Html.ActionLink("Agregar", "Form", "Producto", htmlAttributes: new { @class = "btn btn-success" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>IdLibro</th>
+                    <th>Nombre</th>
+                    <th>IdAutor</th>
+                    <th>Num.Paginas</th>
+                    <th>Publicación</th>
+                    <th>IdEditorial</th>
+                    <th>Edición</th>
+                    <th>IdGenero</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ML.Libro libro in Model.Libros)
+                {
+                    <tr>
+                        <td>@libro.IdLibro</td>
+                        <td>@libro.Nombre</td>
+                        <td>@libro.IdAutor</td>
+                        <td>@libro.NumeroPaginas</td>
+                        <td>@libro.FechaPublicacion</td>
+                        <td>@libro.IdEditorial</td>
+                        <td>@libro.Edicion</td>
+                        <td>@libro.IdGenero</td>
+                    </tr>
+                }
+
+            </tbody>
+        </div>
+    </div>
+
+</div>
+
