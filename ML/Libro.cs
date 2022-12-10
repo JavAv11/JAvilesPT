@@ -12,7 +12,7 @@ namespace ML
         public int IdLibro { get; set; }
         public string Nombre { get; set; }
         public int IdAutor { get; set; }
-        public string NumeroPaginas { get; set; }
+        public int NumeroPaginas { get; set; }
         public string FechaPublicacion { get; set; }
         public int IdEditorial { get; set; }
         public string Edicion { get; set; }

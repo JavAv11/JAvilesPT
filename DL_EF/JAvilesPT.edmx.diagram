@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="faa745cc1b5441c2a88254ebd5e1c446" Name="Diagram1" >
+        <EntityTypeShape EntityType="JAvilesPT.Autor" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="JAvilesPT.Editorial" Width="1.5" PointX="0.75" PointY="4.875" />
+        <EntityTypeShape EntityType="JAvilesPT.Genero" Width="1.5" PointX="0.75" PointY="7.25" />
+        <EntityTypeShape EntityType="JAvilesPT.Libro" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="JAvilesPT.FK__Libro__IdAutor__164452B1" />
+        <AssociationConnector Association="JAvilesPT.FK__Libro__IdEditori__173876EA" />
+        <AssociationConnector Association="JAvilesPT.FK__Libro__IdGenero__182C9B23" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

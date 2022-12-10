@@ -204,7 +204,7 @@ namespace BL
                                 libro.IdLibro = int.Parse(dataRow[0].ToString());
                                 libro.Nombre = dataRow[1].ToString();
                                 libro.IdAutor = int.Parse(dataRow[2].ToString());
-                                libro.NumeroPaginas = dataRow[3].ToString();
+                                libro.NumeroPaginas = int.Parse(dataRow[3].ToString());
                                 libro.FechaPublicacion = dataRow[4].ToString();
                                 libro.IdEditorial = int.Parse(dataRow[0].ToString());
                                 libro.Edicion = dataRow[5].ToString();
@@ -267,7 +267,7 @@ namespace BL
                             libro.IdLibro = int.Parse(dataRow[0].ToString());
                             libro.Nombre = dataRow[1].ToString();
                             libro.IdAutor = int.Parse(dataRow[2].ToString());
-                            libro.NumeroPaginas = dataRow[3].ToString();
+                            libro.NumeroPaginas = int.Parse(dataRow[3].ToString());
                             libro.FechaPublicacion = dataRow[4].ToString();
                             libro.IdEditorial = int.Parse(dataRow[0].ToString());
                             libro.Edicion = dataRow[5].ToString();
@@ -292,6 +292,180 @@ namespace BL
             {
                 result.Correct = false;
                 result.ErrorMessage = ex.Message;
+                result.ex = ex;
+            }
+            return result;
+        }
+
+
+        //ENtityFramework
+
+        public static ML.Result Add_EF(ML.Libro libro)
+        {
+            ML.Result result = new ML.Result();
+
+            try
+            {
+                using(DL_EF.JAvilesPTContainer context = new DL_EF.JAvilesPTContainer())
+                {
+                    
+                    var query = context.AddLibro(libro.Nombre,libro.IdAutor, libro.NumeroPaginas,DateTime.Parse(libro.FechaPublicacion),libro.IdEditorial,libro.Edicion,libro.IdGenero);
+
+                    if (query > 0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                result.Correct = true ;
+                result.ErrorMessage=ex.Message;
+                result.ex = ex;
+            }
+            return result;
+        }
+
+        public static ML.Result Update_EF(ML.Libro libro)
+        {
+            ML.Result result = new ML.Result();
+
+            try
+            {
+                using (DL_EF.JAvilesPTContainer context = new DL_EF.JAvilesPTContainer())
+                {
+
+                    var query = context.UpdateLibro(libro.IdLibro,libro.Nombre, libro.IdAutor, libro.NumeroPaginas, DateTime.Parse(libro.FechaPublicacion), libro.IdEditorial, libro.Edicion, libro.IdGenero);
+
+                    if (query > 0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = true;
+                result.ErrorMessage = ex.Message;
+                result.ex = ex;
+            }
+            return result;
+        }
+
+        public static ML.Result Delete_EF(int IdLibro)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using(DL_EF.JAvilesPTContainer context = new DL_EF.JAvilesPTContainer())
+                {
+                    var query= context.LibroDelete(IdLibro);
+
+                    if(query> 0)
+                    {
+                        result.Correct=true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }catch(Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage=ex.Message;
+                result.ex = ex;
+            }
+            return result;
+        }
+
+        public static ML.Result GetAll_EF()
+        {
+            ML.Result result = new ML.Result();
+
+            try
+            {
+                using(DL_EF.JAvilesPTContainer context = new DL_EF.JAvilesPTContainer())
+                {
+                    var query = context.LibroGetAll().ToList();
+                    //result.Objects = new List<object>();
+                    if (query != null)
+                    {
+                        result.Objects = new List<object>();
+                        foreach(var obj in query)
+                        {
+                            ML.Libro libro = new ML.Libro();
+
+                            libro.IdLibro=obj.IdLibro;
+                            libro.Nombre= obj.Nombre;
+                            libro.IdAutor=obj.IdAutor;
+                            libro.NumeroPaginas = obj.NumeroPaginas.Value;
+                            libro.FechaPublicacion = obj.FechaPublicacion.ToString();
+                            libro.IdEditorial = obj.IdEditorial;
+                            libro.Edicion=obj.Edicion;
+                            libro.IdGenero = obj.IdGenero;
+                            result.Objects.Add(libro);
+                        }
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.ex = ex;
+            }
+            return result;
+        }
+
+        public static ML.Result GetById_EF(int IdLibro)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+            using(DL_EF.JAvilesPTContainer context=new DL_EF.JAvilesPTContainer())
+                {
+                    var obj = context.LibroGetById(IdLibro).FirstOrDefault();
+                    result.Objects = new List<object>();
+
+                    if(obj != null)
+                    {
+                        ML.Libro libro = new ML.Libro();
+                        libro.IdLibro = obj.IdLibro;
+                        libro.Nombre = obj.Nombre;
+                        libro.IdAutor = obj.IdAutor;
+                        libro.NumeroPaginas = obj.NumeroPaginas.Value;
+                        libro.FechaPublicacion = obj.FechaPublicacion.ToString();
+                        libro.IdEditorial = obj.IdEditorial;
+                        libro.Edicion = obj.Edicion;
+                        libro.IdGenero = obj.IdGenero;
+
+                        result.Object = libro;
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage=ex.Message;
                 result.ex = ex;
             }
             return result;
