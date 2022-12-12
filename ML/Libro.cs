@@ -19,5 +19,10 @@ namespace ML
         public int IdGenero { get; set; }
         public List<Object> Libros { get; set; }
 
+        public ML.Autor Autor { get; set; }
+        public ML.Editorial Editorial { get; set; }
+        public ML.Genero Genero { get; set; }
+        
+
     }
 }

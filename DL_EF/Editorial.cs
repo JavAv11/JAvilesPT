@@ -17,13 +17,13 @@ namespace DL_EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Editorial()
         {
-            this.Libroes = new HashSet<Libro>();
+            this.Libro = new HashSet<Libro>();
         }
     
         public int IdEditorial { get; set; }
         public string Nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Libro> Libroes { get; set; }
+        public virtual ICollection<Libro> Libro { get; set; }
     }
 }

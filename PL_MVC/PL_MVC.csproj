@@ -171,6 +171,8 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Libro\GetAll.cshtml" />
+    <Content Include="Views\Libro\Form.cshtml" />
+    <Content Include="Views\Libro\Modal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -193,10 +195,6 @@
     <ProjectReference Include="..\BL\BL.csproj">
       <Project>{172b665b-e5f2-450e-80d0-0ecd44124966}</Project>
       <Name>BL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DL_EF\DL_EF.csproj">
-      <Project>{28c759dd-ab73-4cdb-a395-3731e69a6b49}</Project>
-      <Name>DL_EF</Name>
     </ProjectReference>
     <ProjectReference Include="..\ML\ML.csproj">
       <Project>{dd52fa8d-1390-41ad-8d60-576e9cb65797}</Project>

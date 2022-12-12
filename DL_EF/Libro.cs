@@ -18,7 +18,7 @@ namespace DL_EF
         public string Nombre { get; set; }
         public Nullable<int> IdAutor { get; set; }
         public Nullable<int> NumeroPaginas { get; set; }
-        public Nullable<System.DateTime> FechaPublicacion { get; set; }
+        public string FechaPublicacion { get; set; }
         public Nullable<int> IdEditorial { get; set; }
         public string Edicion { get; set; }
         public Nullable<int> IdGenero { get; set; }

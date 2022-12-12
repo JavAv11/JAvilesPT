@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{28C759DD-AB73-4CDB-A395-3731E69A6B49}</ProjectGuid>
+    <ProjectGuid>{83780141-2A00-4501-8EB7-5FC9BC48F556}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DL_EF</RootNamespace>
@@ -54,67 +54,74 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autor.cs">
-      <DependentUpon>JAvilesPT.tt</DependentUpon>
+      <DependentUpon>JAviles.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AutorGetAll_Result.cs">
+      <DependentUpon>JAviles.tt</DependentUpon>
+    </Compile>
     <Compile Include="Editorial.cs">
-      <DependentUpon>JAvilesPT.tt</DependentUpon>
+      <DependentUpon>JAviles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EditorialGetAll_Result.cs">
+      <DependentUpon>JAviles.tt</DependentUpon>
     </Compile>
     <Compile Include="Genero.cs">
-      <DependentUpon>JAvilesPT.tt</DependentUpon>
+      <DependentUpon>JAviles.tt</DependentUpon>
     </Compile>
-    <Compile Include="JAvilesPT.Context.cs">
+    <Compile Include="GeneroGetAll_Result.cs">
+      <DependentUpon>JAviles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JAviles.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>JAvilesPT.Context.tt</DependentUpon>
+      <DependentUpon>JAviles.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="JAvilesPT.cs">
+    <Compile Include="JAviles.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>JAvilesPT.tt</DependentUpon>
+      <DependentUpon>JAviles.tt</DependentUpon>
     </Compile>
-    <Compile Include="JAvilesPT.Designer.cs">
+    <Compile Include="JAviles.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>JAvilesPT.edmx</DependentUpon>
+      <DependentUpon>JAviles.edmx</DependentUpon>
     </Compile>
     <Compile Include="Libro.cs">
-      <DependentUpon>JAvilesPT.tt</DependentUpon>
+      <DependentUpon>JAviles.tt</DependentUpon>
     </Compile>
     <Compile Include="LibroGetAll_Result.cs">
-      <DependentUpon>JAvilesPT.tt</DependentUpon>
+      <DependentUpon>JAviles.tt</DependentUpon>
     </Compile>
     <Compile Include="LibroGetById_Result.cs">
-      <DependentUpon>JAvilesPT.tt</DependentUpon>
+      <DependentUpon>JAviles.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="JAvilesPT.edmx">
+    <EntityDeploy Include="JAviles.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>JAvilesPT.Designer.cs</LastGenOutput>
+      <LastGenOutput>JAviles.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="JAvilesPT.edmx.diagram">
-      <DependentUpon>JAvilesPT.edmx</DependentUpon>
+    <None Include="JAviles.edmx.diagram">
+      <DependentUpon>JAviles.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="JAvilesPT.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>JAvilesPT.Context.cs</LastGenOutput>
-      <DependentUpon>JAvilesPT.edmx</DependentUpon>
-    </Content>
-    <Content Include="JAvilesPT.edmx.sql" />
-    <Content Include="JAvilesPT.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>JAvilesPT.cs</LastGenOutput>
-      <DependentUpon>JAvilesPT.edmx</DependentUpon>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="JAviles.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>JAviles.edmx</DependentUpon>
+      <LastGenOutput>JAviles.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="JAviles.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>JAviles.edmx</DependentUpon>
+      <LastGenOutput>JAviles.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

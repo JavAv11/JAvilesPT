@@ -306,40 +306,17 @@ namespace BL
 
             try
             {
-                using(DL_EF.JAvilesPTContainer context = new DL_EF.JAvilesPTContainer())
-                {
-                    
-                    var query = context.AddLibro(libro.Nombre,libro.IdAutor, libro.NumeroPaginas,DateTime.Parse(libro.FechaPublicacion),libro.IdEditorial,libro.Edicion,libro.IdGenero);
-
-                    if (query > 0)
-                    {
-                        result.Correct = true;
-                    }
-                    else
-                    {
-                        result.Correct = false;
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                result.Correct = true ;
-                result.ErrorMessage=ex.Message;
-                result.ex = ex;
-            }
-            return result;
-        }
-
-        public static ML.Result Update_EF(ML.Libro libro)
-        {
-            ML.Result result = new ML.Result();
-
-            try
-            {
-                using (DL_EF.JAvilesPTContainer context = new DL_EF.JAvilesPTContainer())
+                using (DL_EF.JAvilesPTEntities context = new DL_EF.JAvilesPTEntities())
                 {
 
-                    var query = context.UpdateLibro(libro.IdLibro,libro.Nombre, libro.IdAutor, libro.NumeroPaginas, DateTime.Parse(libro.FechaPublicacion), libro.IdEditorial, libro.Edicion, libro.IdGenero);
+                    var query = context.AddLibro(
+                        libro.Nombre,
+                        libro.Autor.IdAutor,
+                        libro.NumeroPaginas,
+                        libro.FechaPublicacion,
+                        libro.Editorial.IdEditorial,
+                        libro.Edicion,
+                        libro.Genero.IdGenero);
 
                     if (query > 0)
                     {
@@ -360,28 +337,59 @@ namespace BL
             return result;
         }
 
-        public static ML.Result Delete_EF(int IdLibro)
+        public static ML.Result Update_EF(ML.Libro libro)
         {
             ML.Result result = new ML.Result();
+
             try
             {
-                using(DL_EF.JAvilesPTContainer context = new DL_EF.JAvilesPTContainer())
+                using (DL_EF.JAvilesPTEntities context = new DL_EF.JAvilesPTEntities())
                 {
-                    var query= context.LibroDelete(IdLibro);
 
-                    if(query> 0)
+                    var query = context.UpdateLibro(libro.IdLibro, libro.Nombre, libro.Autor.IdAutor, libro.NumeroPaginas, libro.FechaPublicacion, libro.Editorial.IdEditorial, libro.Edicion, libro.Genero.IdGenero);
+
+                    if (query > 0)
                     {
-                        result.Correct=true;
+                        result.Correct = true;
                     }
                     else
                     {
                         result.Correct = false;
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 result.Correct = false;
-                result.ErrorMessage=ex.Message;
+                result.ErrorMessage = ex.Message;
+                result.ex = ex;
+            }
+            return result;
+        }
+
+        public static ML.Result Delete_EF(int IdLibro)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL_EF.JAvilesPTEntities context = new DL_EF.JAvilesPTEntities())
+                {
+                    var query = context.LibroDelete(IdLibro);
+
+                    if (query > 0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
                 result.ex = ex;
             }
             return result;
@@ -393,26 +401,37 @@ namespace BL
 
             try
             {
-                using(DL_EF.JAvilesPTContainer context = new DL_EF.JAvilesPTContainer())
+                using (DL_EF.JAvilesPTEntities context = new DL_EF.JAvilesPTEntities())
                 {
                     var query = context.LibroGetAll().ToList();
-                    //result.Objects = new List<object>();
+                    result.Objects = new List<object>();
                     if (query != null)
                     {
-                        result.Objects = new List<object>();
-                        foreach(var obj in query)
+                        foreach (var obj in query)
                         {
-                            ML.Libro libro = new ML.Libro();
+                            ML.Libro objLibro = new ML.Libro();
 
-                            libro.IdLibro=obj.IdLibro;
-                            libro.Nombre= obj.Nombre;
-                            libro.IdAutor=obj.IdAutor;
-                            libro.NumeroPaginas = obj.NumeroPaginas.Value;
-                            libro.FechaPublicacion = obj.FechaPublicacion.ToString();
-                            libro.IdEditorial = obj.IdEditorial;
-                            libro.Edicion=obj.Edicion;
-                            libro.IdGenero = obj.IdGenero;
-                            result.Objects.Add(libro);
+                            objLibro.IdLibro = obj.IdLibro;
+                            objLibro.Nombre = obj.Nombre;
+
+                            objLibro.Autor = new ML.Autor();
+                            objLibro.Autor.IdAutor = obj.IdAutor;
+                            objLibro.Autor.Nombre = obj.NombreAutor;
+
+                            objLibro.NumeroPaginas = obj.NumeroPaginas.Value;
+                            objLibro.FechaPublicacion = obj.FechaPublicacion.ToString();
+
+                            objLibro.Editorial = new ML.Editorial();
+                            objLibro.Editorial.IdEditorial = obj.IdEditorial;
+                            objLibro.Editorial.Nombre = obj.NombreEditorial;
+
+                            objLibro.Edicion = obj.Edicion;
+
+                            objLibro.Genero = new ML.Genero();
+                            objLibro.Genero.IdGenero = obj.IdGenero;
+                            objLibro.Genero.Nombre = obj.NombreGenero;
+
+                            result.Objects.Add(objLibro);
                         }
                         result.Correct = true;
                     }
@@ -422,7 +441,7 @@ namespace BL
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result.Correct = false;
                 result.ErrorMessage = ex.Message;
@@ -436,22 +455,36 @@ namespace BL
             ML.Result result = new ML.Result();
             try
             {
-            using(DL_EF.JAvilesPTContainer context=new DL_EF.JAvilesPTContainer())
+                using (DL_EF.JAvilesPTEntities context = new DL_EF.JAvilesPTEntities())
                 {
                     var obj = context.LibroGetById(IdLibro).FirstOrDefault();
                     result.Objects = new List<object>();
 
-                    if(obj != null)
+                    if (obj != null)
                     {
                         ML.Libro libro = new ML.Libro();
+
                         libro.IdLibro = obj.IdLibro;
                         libro.Nombre = obj.Nombre;
-                        libro.IdAutor = obj.IdAutor;
+
+                        libro.Autor = new ML.Autor();
+                        libro.Autor.IdAutor = obj.IdAutor;
+                        libro.Autor.Nombre = obj.Nombre;
+
                         libro.NumeroPaginas = obj.NumeroPaginas.Value;
                         libro.FechaPublicacion = obj.FechaPublicacion.ToString();
-                        libro.IdEditorial = obj.IdEditorial;
+
+                        libro.Editorial = new ML.Editorial();
+                        libro.Editorial.IdEditorial = obj.IdEditorial;
+                        libro.Editorial.Nombre = obj.Nombre;
+
                         libro.Edicion = obj.Edicion;
-                        libro.IdGenero = obj.IdGenero;
+
+                        libro.Genero = new ML.Genero();
+                        libro.Genero.IdGenero = obj.IdGenero;
+                        libro.Genero.Nombre = obj.Nombre;
+
+                        
 
                         result.Object = libro;
                         result.Correct = true;
@@ -462,10 +495,10 @@ namespace BL
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result.Correct = false;
-                result.ErrorMessage=ex.Message;
+                result.ErrorMessage = ex.Message;
                 result.ex = ex;
             }
             return result;

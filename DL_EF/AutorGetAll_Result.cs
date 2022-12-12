@@ -11,18 +11,9 @@ namespace DL_EF
 {
     using System;
     
-    public partial class LibroGetAll_Result
+    public partial class AutorGetAll_Result
     {
-        public int IdLibro { get; set; }
-        public string Nombre { get; set; }
         public int IdAutor { get; set; }
         public string NombreAutor { get; set; }
-        public Nullable<int> NumeroPaginas { get; set; }
-        public string FechaPublicacion { get; set; }
-        public int IdEditorial { get; set; }
-        public string NombreEditorial { get; set; }
-        public string Edicion { get; set; }
-        public int IdGenero { get; set; }
-        public string NombreGenero { get; set; }
     }
 }

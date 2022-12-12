@@ -15,10 +15,10 @@ namespace DL_EF
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class JAvilesPTContainer : DbContext
+    public partial class JAvilesPTEntities : DbContext
     {
-        public JAvilesPTContainer()
-            : base("name=JAvilesPTContainer")
+        public JAvilesPTEntities()
+            : base("name=JAvilesPTEntities")
         {
         }
     
@@ -27,12 +27,12 @@ namespace DL_EF
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Autor> Autors { get; set; }
-        public virtual DbSet<Editorial> Editorials { get; set; }
-        public virtual DbSet<Genero> Generoes { get; set; }
-        public virtual DbSet<Libro> Libroes { get; set; }
+        public virtual DbSet<Autor> Autor { get; set; }
+        public virtual DbSet<Editorial> Editorial { get; set; }
+        public virtual DbSet<Genero> Genero { get; set; }
+        public virtual DbSet<Libro> Libro { get; set; }
     
-        public virtual int AddLibro(string nombre, Nullable<int> idAutor, Nullable<int> numeroPaginas, Nullable<System.DateTime> fechaPublicacion, Nullable<int> idEditorial, string edicion, Nullable<int> idGenero)
+        public virtual int AddLibro(string nombre, Nullable<int> idAutor, Nullable<int> numeroPaginas, string fechaPublicacion, Nullable<int> idEditorial, string edicion, Nullable<int> idGenero)
         {
             var nombreParameter = nombre != null ?
                 new ObjectParameter("Nombre", nombre) :
@@ -46,9 +46,9 @@ namespace DL_EF
                 new ObjectParameter("NumeroPaginas", numeroPaginas) :
                 new ObjectParameter("NumeroPaginas", typeof(int));
     
-            var fechaPublicacionParameter = fechaPublicacion.HasValue ?
+            var fechaPublicacionParameter = fechaPublicacion != null ?
                 new ObjectParameter("FechaPublicacion", fechaPublicacion) :
-                new ObjectParameter("FechaPublicacion", typeof(System.DateTime));
+                new ObjectParameter("FechaPublicacion", typeof(string));
     
             var idEditorialParameter = idEditorial.HasValue ?
                 new ObjectParameter("IdEditorial", idEditorial) :
@@ -63,6 +63,21 @@ namespace DL_EF
                 new ObjectParameter("IdGenero", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddLibro", nombreParameter, idAutorParameter, numeroPaginasParameter, fechaPublicacionParameter, idEditorialParameter, edicionParameter, idGeneroParameter);
+        }
+    
+        public virtual ObjectResult<AutorGetAll_Result1> AutorGetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AutorGetAll_Result1>("AutorGetAll");
+        }
+    
+        public virtual ObjectResult<EditorialGetAll_Result1> EditorialGetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EditorialGetAll_Result1>("EditorialGetAll");
+        }
+    
+        public virtual ObjectResult<GeneroGetAll_Result1> GeneroGetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GeneroGetAll_Result1>("GeneroGetAll");
         }
     
         public virtual int LibroDelete(Nullable<int> idLibro)
@@ -88,7 +103,7 @@ namespace DL_EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<LibroGetById_Result>("LibroGetById", idLibroParameter);
         }
     
-        public virtual int UpdateLibro(Nullable<int> idLibro, string nombre, Nullable<int> idAutor, Nullable<int> numeroPaginas, Nullable<System.DateTime> fechaPublicacion, Nullable<int> idEditorial, string edicion, Nullable<int> idGenero)
+        public virtual int UpdateLibro(Nullable<int> idLibro, string nombre, Nullable<int> idAutor, Nullable<int> numeroPaginas, string fechaPublicacion, Nullable<int> idEditorial, string edicion, Nullable<int> idGenero)
         {
             var idLibroParameter = idLibro.HasValue ?
                 new ObjectParameter("IdLibro", idLibro) :
@@ -106,9 +121,9 @@ namespace DL_EF
                 new ObjectParameter("NumeroPaginas", numeroPaginas) :
                 new ObjectParameter("NumeroPaginas", typeof(int));
     
-            var fechaPublicacionParameter = fechaPublicacion.HasValue ?
+            var fechaPublicacionParameter = fechaPublicacion != null ?
                 new ObjectParameter("FechaPublicacion", fechaPublicacion) :
-                new ObjectParameter("FechaPublicacion", typeof(System.DateTime));
+                new ObjectParameter("FechaPublicacion", typeof(string));
     
             var idEditorialParameter = idEditorial.HasValue ?
                 new ObjectParameter("IdEditorial", idEditorial) :
