@@ -59,16 +59,25 @@
     <Compile Include="AutorGetAll_Result.cs">
       <DependentUpon>JAviles.tt</DependentUpon>
     </Compile>
+    <Compile Include="AutorGetAll_Result1.cs">
+      <DependentUpon>JAviles.tt</DependentUpon>
+    </Compile>
     <Compile Include="Editorial.cs">
       <DependentUpon>JAviles.tt</DependentUpon>
     </Compile>
     <Compile Include="EditorialGetAll_Result.cs">
       <DependentUpon>JAviles.tt</DependentUpon>
     </Compile>
+    <Compile Include="EditorialGetAll_Result1.cs">
+      <DependentUpon>JAviles.tt</DependentUpon>
+    </Compile>
     <Compile Include="Genero.cs">
       <DependentUpon>JAviles.tt</DependentUpon>
     </Compile>
     <Compile Include="GeneroGetAll_Result.cs">
+      <DependentUpon>JAviles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneroGetAll_Result1.cs">
       <DependentUpon>JAviles.tt</DependentUpon>
     </Compile>
     <Compile Include="JAviles.Context.cs">
